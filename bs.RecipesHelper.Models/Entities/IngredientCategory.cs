@@ -26,7 +26,7 @@ namespace bs.RecipesHelper.Models.Entities
             Map(x => x.Name);
             Map(x => x.Description);
             Map(x => x.IsEnabled);
-            HasMany(x => x.Ingredients).Cascade.All().Inverse();
+            HasMany(x => x.Ingredients).Cascade.None().Inverse();
             Map(x => x.IsDeleted);
             Map(x => x.DeletionDate);
 

@@ -12,7 +12,7 @@ namespace bs.RecipesHelper.Models.Repositories
     {
         public IngredientRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            
+
         }
 
         /// <summary>
@@ -27,6 +27,36 @@ namespace bs.RecipesHelper.Models.Repositories
 
             Create(newIngredient);
         }
+        /// <summary>
+        /// Updates the ingredient.
+        /// </summary>
+        /// <param name="ingredient">The ingredient.</param>
+        /// <exception cref="ArgumentNullException">newIngredient - Mandatory paramerter.</exception>
+        public void UpdateIngredient(Ingredient ingredient)
+        {
+            if (ingredient == null)
+                throw new ArgumentNullException("newIngredient", "Mandatory paramerter.");
+
+            Update(ingredient);
+        }
+        /// <summary>
+        /// Gets the active ingredients.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Ingredient> GetActiveIngredients()
+        {
+            return GetAll<Ingredient>()
+                .Where(x => x.IsEnabled && !x.IsDeleted);
+        }
+        /// <summary>
+        /// Gets the ingredient by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public Ingredient GetIngredientById(Guid id)
+        {
+            return GetById<Ingredient>(id);
+        }
 
         /// <summary>
         /// Creates the new ingredient category.
@@ -40,15 +70,30 @@ namespace bs.RecipesHelper.Models.Repositories
 
             Create(newIngredientCategory);
         }
+        public void UpdateIngredient(IngredientCategory ingredientCategory)
+        {
+            if (ingredientCategory == null)
+                throw new ArgumentNullException("newIngredient", "Mandatory paramerter.");
 
+            Update(ingredientCategory);
+        }
         /// <summary>
-        /// Gets the active ingredients.
+        /// Gets the active ingredient categories.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Ingredient> GetActiveIngredients()
+        public IEnumerable<IngredientCategory> GetActiveIngredientCategories()
         {
-            return GetAll<Ingredient>()
-                .Where(x=> x.IsEnabled && !x.IsDeleted);
+            return GetAll<IngredientCategory>()
+                .Where(x => x.IsEnabled && !x.IsDeleted);
+        }
+        /// <summary>
+        /// Gets the ingredient category by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public IngredientCategory GetIngredientCategoryById(Guid id)
+        {
+            return GetById<IngredientCategory>(id);
         }
     }
 }

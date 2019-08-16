@@ -15,6 +15,11 @@ namespace bs.RecipesHelper.Models.Repositories
             
         }
 
+        /// <summary>
+        /// Creates the new ingredient.
+        /// </summary>
+        /// <param name="newIngredient">The new ingredient.</param>
+        /// <exception cref="ArgumentNullException">newIngredient - Mandatory paramerter.</exception>
         public void CreateNewIngredient(Ingredient newIngredient)
         {
             if (newIngredient == null)
@@ -23,6 +28,23 @@ namespace bs.RecipesHelper.Models.Repositories
             Create(newIngredient);
         }
 
+        /// <summary>
+        /// Creates the new ingredient category.
+        /// </summary>
+        /// <param name="newIngredientCategory">The new ingredient category.</param>
+        /// <exception cref="ArgumentNullException">newIngredientCategory - Mandatory paramerter.</exception>
+        public void CreateNewIngredientCategory(IngredientCategory newIngredientCategory)
+        {
+            if (newIngredientCategory == null)
+                throw new ArgumentNullException("newIngredientCategory", "Mandatory paramerter.");
+
+            Create(newIngredientCategory);
+        }
+
+        /// <summary>
+        /// Gets the active ingredients.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Ingredient> GetActiveIngredients()
         {
             return GetAll<Ingredient>()

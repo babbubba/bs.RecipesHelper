@@ -10,7 +10,7 @@ namespace bs.RecipesHelper.Models.Entities
     {
         public virtual Recipe Recipe { get; set; }
         public virtual Ingredient Ingredient { get; set; }
-        public virtual IngredientVariant PossibleVariants { get; set; }
+        public virtual IList<IngredientVariant> PossibleVariants { get; set; }
         public virtual decimal Quantity { get; set; }
         public virtual MeasureUnit Um { get; set; }
         public virtual bool IsOptional { get; set; }
@@ -24,6 +24,7 @@ namespace bs.RecipesHelper.Models.Entities
             Table("RecipesIngredients");
             References(x=>x.Recipe).Not.Nullable();
             References(x=>x.Ingredient).Not.Nullable();
+            HasMany(x => x.PossibleVariants);
             Map(x => x.Quantity);
             Map(x => x.Um);
             Map(x => x.IsOptional);

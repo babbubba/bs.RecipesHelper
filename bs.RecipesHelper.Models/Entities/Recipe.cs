@@ -6,13 +6,17 @@ using System.Text;
 
 namespace bs.RecipesHelper.Models.Entities
 {
-    public class Recipe : BaseEntity
+    public class Recipe : BaseAuditableEntity, IEnableableEntity, ILogicallyDeletableEntity
     {
         public virtual int Complexity { get; set; }
         public virtual string Instruction { get; set; }
         public virtual int NeededMinutes { get; set; }
         public virtual IList<RecipesIngredients> RecipesIngredients { get; set; }
         public virtual IList<Recipe> RelatedRecipes { get; set; }
+
+        public virtual bool IsEnabled { get; set; }
+        public virtual bool IsDeleted { get; set; }
+        public virtual DateTime? DeletionDate { get; set; }
 
     }
 
@@ -27,6 +31,11 @@ namespace bs.RecipesHelper.Models.Entities
             Map(x => x.NeededMinutes).Not.Nullable();
             HasMany(x => x.RecipesIngredients);
             HasMany(x => x.RelatedRecipes);
+
+            Map(x => x.IsEnabled);
+            Map(x => x.IsDeleted);
+            Map(x => x.DeletionDate);
+
         }
     }
 }

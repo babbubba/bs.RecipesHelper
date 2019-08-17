@@ -95,5 +95,6 @@ namespace bs.RecipesHelper.Models.Repositories
         {
             return GetById<IngredientCategory>(id);
         }
+     
     }
 }

@@ -43,11 +43,18 @@ namespace bs.RecipesHelper.Models.Repositories
         /// Gets the active ingredients.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Ingredient> GetActiveIngredients()
+        public IEnumerable<Ingredient> GetIngredients(string ingredientNamePattern, bool enabledOnly)
         {
-            return GetAll<Ingredient>()
-                .Where(x => x.IsEnabled && !x.IsDeleted);
+            var query = GetAll<Ingredient>().Where(x => !x.IsDeleted);
+
+            if(enabledOnly) query = query.Where(x => x.IsEnabled);
+
+            if(!string.IsNullOrWhiteSpace(ingredientNamePattern)) query = query.Where(x => x.Name.Contains(ingredientNamePattern));
+
+            return query;
         }
+     
+
         /// <summary>
         /// Gets the ingredient by identifier.
         /// </summary>

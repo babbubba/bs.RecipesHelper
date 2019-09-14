@@ -1,0 +1,10 @@
+<div class="ingredients-header">
+  <button (click)="addIngredient()">Nuovo Ingrediente</button>
+</div>
+<div class="ingredients-wrapper">
+  <ul>
+    <li *ngFor="let ingredient of ingredients">
+      <app-ingredient [ingredientInfo]="ingredient"></app-ingredient>
+    </li>
+  </ul>
+</div>

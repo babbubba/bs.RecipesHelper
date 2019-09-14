@@ -1,3 +1,7 @@
+using bs.Data;
+using bs.Data.Interfaces;
+using bs.RecipesHelper.Models.Repositories;
+using bs.RecipesHelper.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -21,6 +25,21 @@ namespace bs.RecipesHelper.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSingleton<IDbContext>(new DbContext
+            {
+                ConnectionString = "Data Source=.\\bs.RecipeHelper.db;Version=3;BinaryGuid=False;",
+                DatabaseEngineType = "sqlite",
+                Create = false,
+                Update = true,
+                LookForEntitiesDllInCurrentDirectoryToo = true,
+                UseExecutingAssemblyToo = true
+            });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IngredientRepository>();
+            services.AddScoped<RecipeService>();
+
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -2,6 +2,7 @@ using bs.Data;
 using bs.Data.Interfaces;
 using bs.RecipesHelper.Models.Entities;
 using bs.RecipesHelper.Models.Repositories;
+using bs.RecipesHelper.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace bs.RecipesHelper.Data.Test
@@ -43,6 +44,28 @@ namespace bs.RecipesHelper.Data.Test
             uow.Commit();
 
 
+        }
+
+        [TestMethod]
+        public void TestRecipeService()
+        {
+            var uow = CreateUnitOfWork_Sqlite();
+            var ingredientRepo = new IngredientRepository(uow);
+            var recipeService = new RecipeService(uow, ingredientRepo);
+            var result = recipeService.GetIngredientsInfo(null, true);
+
+        }
+
+        [TestMethod]
+        public void CreateIngredientTest()
+        {
+            var uow = CreateUnitOfWork_Sqlite();
+            var ingredientRepo = new IngredientRepository(uow);
+            //uow.BeginTransaction();
+
+            var recipeService = new RecipeService(uow, ingredientRepo);
+            recipeService.CreateIngredient("Cipolla", "Descrizione per cipolla", true);
+            //uow.Commit();
         }
     }
 }
